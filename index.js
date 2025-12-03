@@ -13,6 +13,7 @@ const IGNORED_TASK_DEFINITION_ATTRIBUTES = [
   'status',
   'registeredBy',
   'registeredAt',
+  'enableFaultInjection',
 ];
 
 const WAIT_DEFAULT_DELAY_SEC = 5;
@@ -66,7 +67,7 @@ function cleanNullKeys(obj) {
 
 function removeIgnoredAttributes(taskDef) {
   for (var attribute of IGNORED_TASK_DEFINITION_ATTRIBUTES) {
-    if (taskDef[attribute]) {
+    if (taskDef.hasOwnProperty(attribute)) {
       core.warning(
         `Ignoring property '${attribute}' in the task definition file. ` +
         'This property is returned by the Amazon ECS DescribeTaskDefinition API and may be shown in the ECS console, ' +
